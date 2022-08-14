@@ -1,0 +1,252 @@
+\documentclass[addpoints]{exam}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{venndiagram}
+
+% Header and footer.
+\pagestyle{headandfoot}
+\runningheadrule
+\runningfootrule
+\runningheader{CS 113 Discrete Mathematics}{HW 1: Sets}{Spring 2022}
+\runningfooter{}{Page \thepage\ of \numpages}{}
+\firstpageheader{}{}{}
+
+\boxedpoints
+\printanswers
+
+\newcommand\union\cup
+\newcommand\inter\cap
+
+\title{Homework 1: Sets\\ CS 113 Discrete Mathematics}
+\author{associative-multiset}  % replace with your team name
+\date{Habib University -- Spring 2022}
+
+\begin{document}                                                              
+\maketitle
+
+\begin{questions}
+
+\question[5]
+  Write down $\mathcal{P}(X)$ if 
+  $ X = \{ \emptyset, \{\alpha, \beta, \gamma \}, \gamma, \{\{ \alpha, \beta \} \} \}$.
+  \begin{solution}
+    \begin{gather*}
+      \mathcal{P}(X) = \{\emptyset,
+                      \{\emptyset\},\{\{\alpha,\beta,\gamma\}\}, \{\gamma\}, \{\{\{ \alpha, \beta \}\}\}, 
+                      \{\emptyset, \{\alpha, \beta, \gamma\}\}, \{\emptyset,\gamma\}, \{\emptyset, \{\{ \alpha, \beta \}\}\},\\ 
+                      \{\{\alpha,\beta,\gamma\}, \gamma\}, \{\{\alpha,\beta,\gamma\}, \{\{ \alpha, \beta \}\}\}, \{\gamma, \{\{ \alpha, \beta \}\}\},
+                      \{\emptyset, \{\alpha, \beta, \gamma\}, \gamma\}, \\ \{\emptyset, \{\alpha, \beta, \gamma\}, \{\{\alpha, \beta\}\}\},\{\emptyset, \gamma, \{\{ \alpha, \beta \}\}\},
+                      \{\{\alpha,\beta,\gamma\}, \gamma,\{\{ \alpha, \beta \}\}\}, X\}
+    \end{gather*}
+  \end{solution}
+\question
+  \begin{parts}
+  \part[5] 
+    Assume that RO has asked for your help to generate a set that contains all the possible pairs of DSSE faculty and DSSE courses at Habib University. Describe the sets and set operations that you can use to provide RO the desired set.
+    \begin{solution}
+      Let F = \{x $\mid$ x is a DSSE faculty member\} and C = \{y $\mid$ y is a DSSE course\}, then using cartesian product ($\times$) of the sets we can form ordered pairs of the possible faculty and courses combination, the set will be 
+      represented as $F \times C = \{(x,y) \mid x \in F \text{ and } y \in C\}$
+    \end{solution}
+    
+  \part[5] Imagine that the the operation above is extended to include an additional set that contains all the time slots when a course can be scheduled. Describe the set obtained as an outcome of the operation.
+    \begin{solution}
+      Let T = \{z $\mid$ z is a time slot\}, then using cartesian product of the set $F \times C$ with $T$ we can represent all possible combinations of the courses, faculty and the available time slots, the set can be described as follows:
+      $$(F \times C) \times T = \{((x, y), z)\mid x \in F, y \in C \text{ and } z \in T\}$$
+    \end{solution}
+
+  \end{parts}
+  
+\question
+  The \textit{symmetric difference} of two sets $A$ and $B$ is defined as
+  \[
+    A\oplus B = (A-B) \union (B-A).
+  \]
+  It is also known as the \textit{disjunctive union} as it contains all those elements which are in either of those sets, but not in their intersection. 
+  \begin{parts}
+  \part[5] Prove that $A\oplus B = (A \union B)-(A \inter B).$
+    \begin{solution}
+      % Enter your solution here.
+      There are several approaches to prove $A\oplus B = (A \union B)-(A \inter B).$ One of these approaches is by Membership table. The Membership Tables can be use to verify that elements in the same combination of sets always either belong or do not belong to the same side of the identity by using 1 to indicate it is in the set and a 0 to indicate that it is not. In this case:
+      \begin{center}
+      \begin{tabular}{|c|c|c|c|c|c|c|c|} 
+      \hline
+      A & B & A-B & B-A & $(A-B) \union (B-A)$ & $(A \union B)$ & $(A \inter B)$ & $(A \union B)$-$(A \inter B)$ \\ 
+      1 & 1 & 0   &  0  &        0             &        1       &        1       &                0              \\ 
+      1 & 0 & 1   &  0  &        1             &        1       &        0       &                1              \\ 
+      0 & 1 & 0   &  1  &        1             &        1       &        0       &                1              \\ 
+      0 & 0 & 0   &  0  &        0             &        0       &        0       &                0              \\ 
+      \hline
+      \end{tabular}
+      \end{center}
+      Here, Since LHS which is equal to $A\oplus B$ which can also be written as $(A-B) \union (B-A).$ (shown in coloumn 4 of the table) has the same output as RHS which is equal to $(A \union B)$-$(A \inter B)$ (shown in coloumn 8 of the table) therefore, it has been proved that LHS = RHS.\\\\
+      Another approach is to use venn diagram and check if both LHS and RHS are having the same venn diagram.\\
+      The venn diagramm for $(A \union B) - (A \inter B)$ is:\\
+      \begin{venndiagram2sets}
+        \fillOnlyA;
+        \fillOnlyB;
+      \end{venndiagram2sets}\\
+      The venn diagramm for $(A - B) \union (B - A)$ is:\\
+      \begin{venndiagram2sets}
+        \fillOnlyA;
+        \fillOnlyB;
+      \end{venndiagram2sets}\\
+      Since LHS=RHS. Hence Proved!
+    \end{solution}
+
+  \part[5] For three sets $A, B,$ and $C$, the symmetric difference is defined as
+    \[
+      A\oplus B\oplus C = (A\oplus B)\oplus C,
+    \]
+    i.e. the two-set definition is applied twice. Draw the Venn diagram of this set.
+    \begin{solution}
+      % Enter your solution here.
+      For three sets $A, B,$ and $C$, the expression of symmetric difference is obtained in part (c), which is: $(((A \union B) - (A \inter B)) \union C) - (((A \union B) - (A \inter B)) \inter C).$
+      The venn diagramm for $((A \union B) - (A \inter B)) \union C$ is:\\
+      \begin{venndiagram3sets}
+        \fillOnlyA;
+        \fillOnlyB;
+        \fillOnlyC;
+        \fillACapC;
+        \fillBCapC;
+      \end{venndiagram3sets}
+
+      The venn diagramm for $((A \union B) - (A \inter B)) \inter C$ is:\\
+      \begin{venndiagram3sets}
+        \fillACapCNotB
+        \fillBCapCNotA
+      \end{venndiagram3sets}
+
+      Hence, the venn diagram for $(((A \union B) - (A \inter B)) \union C) - (((A \union B) - (A \inter B)) \inter C)$ which is equal to $A \oplus B \oplus C$ is:
+      \begin{venndiagram3sets}
+        \fillOnlyA;
+        \fillOnlyB;
+        \fillOnlyC;
+        \fillACapBCapC;
+      \end{venndiagram3sets}
+    \end{solution}
+
+  \part[5] Using the insights from above, express $A\oplus B\oplus C$ in the same manner as given in part a). That is, using the basic set operations: union, intersection, and complement. Show your working.
+    \begin{solution}
+      % Enter your solution here.
+      We need to express the symmetric difference for 3 sets in the same manner as given in part (a):
+      \begin{equation}\label{first}
+        A \oplus B \oplus C = ?
+      \end{equation}
+      According to part (a):
+      \begin{equation}\label{second}
+        A \oplus B = (A \union B) - (A \inter B) 
+      \end{equation}
+      \begin{equation}\label{third}
+        A \oplus B = (A - B) \union (B - A) 
+      \end{equation}
+      putting eq (\ref{second}) in eq (\ref{first}):
+      \begin{equation}\label{fourth}
+        \implies ((A \union B) - (A \inter B)) \oplus C
+      \end{equation}
+      Assuming:
+      \begin{equation}\label{fifth}
+        ((A \union B) - (A \inter B)) = D
+      \end{equation}
+      putting eq (\ref{fourth}) in eq (\ref{third}):
+      \begin{equation}\label{sixth}
+        \implies D \oplus C 
+      \end{equation}
+      According to eq (\ref{second}):
+      \begin{equation}\label{seven}
+        \implies (D \union C) - (C \inter D)
+      \end{equation}
+      Putting value of D in eq (\ref{seven}):
+      \begin{equation}\label{eight}
+        \implies (((A \union B) - (A \inter B)) \union C) - (((A \union B) - (A \inter B)) \inter C)
+      \end{equation}
+      This is the expression for $A\oplus B\oplus C$ in the same manner as given in part (a).
+    \end{solution}
+
+  \end{parts}
+
+\question
+  Let $A$ be the set of all numbers that are divisible by 6 and $B$ the set of all numbers that are divisible by $10$.
+
+  \begin{parts}
+  \part[5] Write the sets $A$ and $B$ in set notation and describe $A \inter B$ as simply as possible.
+    \begin{solution}
+      $$A = \{6a \mid a \in \mathcal{N}\}$$
+      $$B = \{10b \mid b \in \mathcal{N}\}$$
+      $$A \inter B = \{30c \mid c \in \mathcal{N}\}$$
+    \end{solution}
+
+  \part[10] Describe the set $A \oplus B$, i.e. the symmetric difference of $A$ and $B$, using set notation. Provide a proof that the set you indicate is indeed the symmetric difference of $A$ and $B$.
+    \begin{solution}
+      The symmetric difference of two sets A and B is the set which has all elements of A and B except those which are in their intersection. This can be defined using set notation as follows:
+      $$A\oplus B = \{x \mid (x \in A \wedge x \notin B) \vee (x \in B \wedge x \notin A)\}$$
+      In order to prove the above stated description, we need to satisfy two conditions:\\
+      \textbf{Condition 1: } $x \in A \vee x \in B$ \\
+      The statement $x \in A \wedge x \notin B$ of the description, will only be true if both are met, thus it implies that $x \in A$ for it to be true. Similarly, the statement $x \in B \wedge x \notin A$
+      implies that $x \in B$, thus whatever may be the case $x \in A$ or $x \in B$, thus condition 1 proved.\\
+      \textbf{Condition 2: } $x \notin A \inter B$\\
+      Using proof by contradiction:- \\
+      Let, $x \in A \inter B \implies x\in A \wedge x \in B$\\
+      The statement $x \in A \wedge x \notin B$ implies that x does not belong to B whenever x belongs to A, similarly, the statement $x \in B \wedge x \notin A$ implies that x does not belong to A whenever
+      x belongs to B. Therefore, there is never an instant when $x \in A \wedge x \in B$, thus $x \notin A \inter B$.\\
+      Since, both Condition 1 and Condition 2 have been proved, thus the description of the set above is indeed indicating the symmetric difference.
+    \end{solution}
+
+  \part[5] Given $U = \{x\in \mathbb{N} \mid x \leq 60 \}$, list the elements of $A$, $B$, and $A \oplus B$ 
+    \begin{solution}
+      \begin{gather*}
+        A = \{6, 12, 18, 24, 30, 36, 42, 48, 54, 60\}\\
+        B = \{10, 20, 30, 40, 50, 60\}\\
+        A \oplus B = \{6, 10, 12, 18, 20, 24, 36, 40, 42, 48, 50, 54\}
+      \end{gather*}
+    \end{solution}
+
+  \end{parts}
+
+\question
+  Show that $\overline{ A \union \overline{B}} = \overline{A} \inter B$.
+  \begin{parts}
+    
+  \part[5] by using set identities.
+    \begin{solution}
+      % Enter your solution here.
+      To Show: $\overline{A \union \overline{B}} = {\overline{A} \inter B}$\\
+      Considering LHS:\\
+      $\implies \overline{A \union \overline{B}}$\\
+      Applying De Morgan's Law $\overline{A \union B} = {\overline{A} \inter \overline{B}}.$\\
+      $\implies {\overline{A} \inter \overline{\overline{B}}}$\\
+      Applying Complementation law $\overline{\overline{A}} = A.$\\
+      $\implies {\overline{A} \inter B}$\\
+      Hence Shown $\overline{A \union \overline{B}} = {\overline{A} \inter B}.$
+    \end{solution}
+    
+  \part[5] by proving that each set is a subset of the other.
+    \begin{solution}
+      % Enter your solution here.
+      To Prove: $\overline{A \union \overline{B}} \subseteq \overline{A} \inter B.$\\
+      Considering LHS:\\
+      Suppose $x \in \overline{ A \union \overline{B}}$\\
+      $\implies x \not\in (A \union \overline{B})$\\
+      $\implies (x \not\in A) \land (x \not\in \overline{B})$\\
+      $\implies (x \in \overline{A}) \land (x \in B)$\\
+      $\implies x \in \overline{A} \inter B$\\
+      Hence Proved $\overline{A} \inter B \subseteq \overline{ A \union \overline{B}}.$\\\\
+      Considering RHS:\\
+      Suppose $x \in \overline{A} \inter B$\\
+      $\implies (x \in \overline{A}) \land (x \in B)$\\
+      $\implies (x \not\in A) \land (x \not\in \overline{B})$\\
+      $\implies x \not\in (A \union \overline{B})$\\
+      $\implies x \in \overline{A \union \overline{B}}$\\
+      Hence Proved $\overline{ A \union \overline{B}} \subseteq \overline{A} \inter B$.\\
+    \end{solution}
+
+  \end{parts}
+\end{questions}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
